@@ -1,0 +1,90 @@
+﻿@model IEnumerable<EmployeeEducationInfo.Model.Employee>
+<style type="text/css">
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+</style>
+@{
+    ViewBag.Title = "员工学历管理系统";
+}
+<h2>员工学历管理</h2>
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<table class="gridtable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seniority)
+        </th>
+        <th>
+            @Html.DisplayName("Education Info")
+        </th>
+        <th>
+            @Html.DisplayName("Function")
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seniority)
+            </td>
+            <td>
+                @foreach (var edu in item.EducationInfo)
+                {
+                    if (edu.IsDel == false)
+                    {
+                        <ul>
+                            <li>
+                                @Html.DisplayFor(empId => edu.StartTime)@Html.Label(" To ")@Html.DisplayFor(empId => edu.EndTime)
+                            </li>
+                            <li>
+                                @Html.DisplayFor(empId => edu.Education)
+                            </li>
+                        </ul>
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EmployeeEducationInfo.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EmployeeEducationInfoStoreContainer">
+    <EntitySet Name="EmployeeSet" EntityType="EmployeeEducationInfo.Store.EmployeeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EducationInfoSet" EntityType="EmployeeEducationInfo.Store.EducationInfoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdminSet" EntityType="EmployeeEducationInfo.Store.AdminSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmployeeEducationInfo" Association="EmployeeEducationInfo.Store.EmployeeEducationInfo">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="EducationInfo" EntitySet="EducationInfoSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EmployeeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="true" />
+    <Property Name="Seniority" Type="int" Nullable="true" />
+    <Property Name="IsDel" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <EntityType Name="EducationInfoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Education" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdminSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ErrorTime" Type="int" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <Association Name="EmployeeEducationInfo">
+    <End Role="Employee" Type="EmployeeEducationInfo.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="EducationInfo" Type="EmployeeEducationInfo.Store.EducationInfoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EducationInfo">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EmployeeEducationInfo" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="EmployeeEducationInfoContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmployeeSet" EntityType="EmployeeEducationInfo.Employee" />
+          <EntitySet Name="EducationInfoSet" EntityType="EmployeeEducationInfo.EducationInfo" />
+          <EntitySet Name="AdminSet" EntityType="EmployeeEducationInfo.Admin" />
+          <AssociationSet Name="EmployeeEducationInfo" Association="EmployeeEducationInfo.EmployeeEducationInfo">
+            <End Role="Employee" EntitySet="EmployeeSet" />
+            <End Role="EducationInfo" EntitySet="EducationInfoSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Age" Type="Int32" Nullable="true" ConcurrencyMode="Fixed" />
+          <Property Name="Seniority" Type="Int32" Nullable="true" ConcurrencyMode="Fixed" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" DefaultValue="false" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="EducationInfo" Relationship="EmployeeEducationInfo.EmployeeEducationInfo" FromRole="Employee" ToRole="EducationInfo" />
+        </EntityType>
+        <EntityType Name="EducationInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Education" Type="String" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" DefaultValue="false" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="Employee" Relationship="EmployeeEducationInfo.EmployeeEducationInfo" FromRole="EducationInfo" ToRole="Employee" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Password" Type="String" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="ErrorTime" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" DefaultValue="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <Association Name="EmployeeEducationInfo">
+          <End Type="EmployeeEducationInfo.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="EmployeeEducationInfo.EducationInfo" Role="EducationInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EducationInfo">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmployeeEducationInfoStoreContainer" CdmEntityContainer="EmployeeEducationInfoContainer">
+    <EntitySetMapping Name="EmployeeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmployeeEducationInfo.Employee)">
+        <MappingFragment StoreEntitySet="EmployeeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Seniority" ColumnName="Seniority" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EducationInfoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmployeeEducationInfo.EducationInfo)">
+        <MappingFragment StoreEntitySet="EducationInfoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="Education" ColumnName="Education" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmployeeEducationInfo.Admin)">
+        <MappingFragment StoreEntitySet="AdminSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ErrorTime" ColumnName="ErrorTime" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

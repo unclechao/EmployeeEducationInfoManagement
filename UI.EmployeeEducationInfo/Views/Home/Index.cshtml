@@ -1,0 +1,57 @@
+﻿@model EmployeeEducationInfo.Model.Admin
+<script src="~/JS/Home/Index.js"></script>
+@{
+    ViewBag.Title = "员工学历管理系统";
+}
+
+<h2>员工学历管理系统</h2>
+
+@using (Html.BeginForm("Login", "Home"))
+{
+    <fieldset>
+        <legend>Admin</legend>
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                </td>
+                <td/>
+                <td>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Name)
+                        @Html.Label("*", new { id = "NameValidate", style = "color:red" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Password)
+                    </div>
+                </td>
+                <td />
+                <td>
+                    <div class="editor-field">
+                        <input id="Password" name="Password" type="password" />
+                        @Html.Label("*", new { id = "PasswordValidate", style = "color:red" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="清除" id="clear" />
+                </td>
+                <td>
+                    <input type="button" value="注册" id="register"/>
+                </td>
+                <td>
+                    <input type="button" value="登录" id="submitFade" />
+                    <input type="submit" value="登录" id="submit" hidden="hidden" />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+

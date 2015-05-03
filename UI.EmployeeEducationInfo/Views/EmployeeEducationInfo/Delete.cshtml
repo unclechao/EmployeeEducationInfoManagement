@@ -1,0 +1,55 @@
+﻿@model EmployeeEducationInfo.Model.Employee
+@{
+    ViewBag.Title = "删除";
+}
+<h2>删除</h2>
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Employee</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Age)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Seniority)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Seniority)
+    </div>
+    <div class="display-label">
+        @Html.DisplayName("Education Info")
+    </div>
+    <div class="display-field">
+        @foreach (var edu in Model.EducationInfo)
+        {
+            if (edu.IsDel == false)
+            {
+                <ul>
+                    <li>
+                        @Html.DisplayFor(empId => edu.StartTime)@Html.Label(" To ")@Html.DisplayFor(empId => edu.EndTime)
+                    </li>
+                    <li>
+                        @Html.DisplayFor(empId => edu.Education)
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,55 @@
+﻿@model EmployeeEducationInfo.Model.Employee
+<script src="~/JS/EmployeeEducationInfo/Create.js"></script>
+@{
+    ViewBag.Title = "新增员工信息";
+}
+
+<h2>新增员工信息</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Employee</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.Label("*", new { id = "NameValidate", style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Age)
+        </div>
+        <div class="editor-field">
+            <input id="Age" name="Age" />
+            @Html.Label(" ", new { id = "AgeValidate", style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Seniority)
+        </div>
+        <div class="editor-field">
+            <input id="Seniority" name="Seniority" />
+            @Html.Label(" ", new { id = "SeniorityValidate", style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            <input type="button" id="createEducation" value="新增一条学历信息" />
+            <input type="button" id="removeEducation" value="删除一条学历信息" />
+        </div>
+        <div class="editor-field" id="createEducationDiv">
+        </div>
+        @Html.Label(" ", new { id = "EducationInfoValidate", style = "color:red" })
+        <p>
+            <input type="button" value="新建" id="submitFade" />
+            <input type="submit" value="新建" id="submit" hidden="hidden" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

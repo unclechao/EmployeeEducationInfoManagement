@@ -1,0 +1,75 @@
+﻿@model EmployeeEducationInfo.Model.Employee
+<script src="~/JS/EmployeeEducationInfo/Edit.js"></script>
+@{
+    ViewBag.Title = "编辑员工及其学历";
+}
+
+<h2>编辑员工及其学历</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Employee</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Name)
+            @Html.Label("*", new { id = "NameValidate", style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Age)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Age)
+            @Html.Label(" ", new { id = "AgeValidate", style = "color:red" })
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Seniority)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Seniority)
+            @Html.Label(" ", new { id = "SeniorityValidate", style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.DisplayName("Education Info")
+        </div>
+        <div class="editor-label">
+            <input type="button" id="createEducation" value="新增一条学历信息" />
+            <input type="button" id="removeEducation" value="删除一条学历信息" />
+        </div>
+        <div class="editor-field" id="createEducationDiv">
+            @foreach (var EducationInfo in Model.EducationInfo)
+            {
+                if (EducationInfo.IsDel == false)
+                {
+                    <table>
+                        @Html.HiddenFor(model => EducationInfo.Id)
+                        @Html.DisplayName("起止时间：")@Html.EditorFor(model => EducationInfo.StartTime)@Html.Label(" To ")@Html.EditorFor(model => EducationInfo.EndTime)
+                        @Html.DisplayName("学习经历：")@Html.EditorFor(model => EducationInfo.Education)
+                        @Html.Label("是否删除：")
+                        <input type="checkbox" name="ready4delete" value="@EducationInfo.Id" />
+                    </table>
+                }
+            }
+        </div>
+        @Html.Label(" ", new { id = "EducationInfoValidate", style = "color:red" })
+        <p>
+            <input type="button" value="保存" id="submitFade" />
+            <input type="submit" value="保存" id="submit" hidden="hidden" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
