@@ -20,8 +20,8 @@ $(function () {
     //==========submit validate==========
     $("#submitFade").click(function () {
         var flag = true;
-        flag = nameValidate();
-        flag = passwordValidate();
+        if (!(nameValidate() && passwordValidate()))
+            flag = false;
         if (flag == true) {
             $("#submit").click();
         }
