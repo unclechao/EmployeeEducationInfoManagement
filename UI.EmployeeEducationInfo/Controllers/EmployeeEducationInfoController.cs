@@ -146,8 +146,10 @@ namespace UI.EmployeeEducationInfo.Controllers
                 var sdateArr = Request["sdate"].Split(',');
                 var edateArr = Request["edate"].Split(',');
                 var eduexpArr = Request["eduexp"].Split(',');
+                int tempInt = 0;
                 for (int i = 0; i < sdateArr.Length; i++)
                 {
+                    tempInt++;
                     DateTime temp;
                     if (DateTime.TryParse(sdateArr[i], out temp) && DateTime.TryParse(edateArr[i], out temp))
                     {
@@ -159,10 +161,10 @@ namespace UI.EmployeeEducationInfo.Controllers
                         eduInfo.EmployeeId = employee.Id;
                         var emp = educationInfoService.GetAllEducationInfos().OrderBy(s => s.Id).Skip(educationInfoService.GetAllEducationInfos().Count() - 1).SingleOrDefault();
                         if (emp != null)
-                            eduInfo.Id = emp.Id + 1;
+                            eduInfo.Id = emp.Id + tempInt;
                         else
                             eduInfo.Id = 1;
-                        employee.EducationInfo.Add(eduInfo);
+                        employee.EducationInfo.Add(eduInfo);                     
                     }
                     else
                     {
