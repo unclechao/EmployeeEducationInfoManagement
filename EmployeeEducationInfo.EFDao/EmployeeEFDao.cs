@@ -45,7 +45,7 @@ namespace EmployeeEducationInfo.EFDao
                 EducationInfo eduInfo = collection.Skip(i).Take<EducationInfo>(1).SingleOrDefault();
                 var res = new EducationInfoEFDao().GetEntityById(eduInfo.Id);
                 if (res != null)
-                {
+                 {
                     //exist
                     var oldEducationInfo = EmployeeEducationInfoDB.EducationInfoSet.Where(s => s.Id == eduInfo.Id).SingleOrDefault();
                     oldEducationInfo.IsDel = eduInfo.IsDel;
